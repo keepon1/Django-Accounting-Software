@@ -2,7 +2,7 @@
 
 Welcome to the Accounting Software project! This application is built using Django and provides comprehensive accounting solutions for businesses of all sizes.
 
-#Table of Contents
+# Table of Contents
 Features
 Demo
 Requirements
@@ -12,7 +12,7 @@ Running Tests
 Contributing
 License
 Contact
-#Features
+# Features
 User authentication and authorization
 Manage clients and vendors
 Track income and expenses
