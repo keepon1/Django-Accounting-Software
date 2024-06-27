@@ -1,10 +1,5 @@
 # Django-Accounting-Software
-Welcome to the Accounting Software project! This application is built using Django and provides comprehensive accounting solutions for businesses of all sizes.
 
-
-Certainly! Here's a sample README for your Django-based accounting software on GitHub:
-
-Accounting Software
 Welcome to the Accounting Software project! This application is built using Django and provides comprehensive accounting solutions for businesses of all sizes.
 
 #Table of Contents
