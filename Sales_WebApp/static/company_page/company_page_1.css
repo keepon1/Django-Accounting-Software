@@ -1,0 +1,432 @@
+/* css for home Header*/
+
+.head{
+    width: 99.2%;
+    height: 50px;
+}
+
+.greet{
+    position: absolute;
+    color: white;
+    font-size: 1.8vw;
+    top: 15px;
+    font-style: italic;
+    width: 42%;
+
+}
+
+.greets{
+    font-size: 2.2vw;
+    font-style: normal;
+}
+
+.logo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    margin-left: 50%;
+    font-size: 2vw;
+}
+
+.log{
+    position: absolute;
+    left: 85%;
+    top: 21px;
+    color: white;
+}
+
+.logs{
+    padding: 6px;
+    color: white;
+    font-size: 1.8vw;
+    text-decoration: none;
+}
+
+.logs:hover{
+    font-style: italic;
+    text-decoration: underline;
+}
+
+/* Css for bussiness*/
+
+.bussiness{
+    width: 98.5%;
+    height: 12vw;
+    margin-top: 20px;
+    color: white;
+}
+
+.select{
+    position: absolute;
+    font-size: 1.8vw;
+    margin-left: 28%;  
+}
+
+.add{
+    position: absolute;
+    margin-left: 55%;
+    height: 3vw;
+    font-size: 1.5vw;
+    background-color: blue;
+    border-radius: 12px;
+    border: solid white;
+    color: white;
+}
+
+.add:hover{
+    cursor: pointer;
+}
+
+.add_b{
+    position: absolute;
+    margin-left: 50%;
+    top: 42px;
+    background-color: rgb(0, 88, 110);
+    z-index: 1;
+    width: 25%;
+    height: 25vw;
+    border: double wheat;
+    border-radius: 10px;
+    display: none;
+}
+
+.add_text{
+    text-align: center;
+    font-size: 1.6vw;
+}
+
+.input_area{
+    display: block;
+    margin-top: 12%;
+    margin-left: 15%;
+    width: 65%;
+    height: 2vw;
+    border-radius: 10px;
+    font-size: 1.5vw;
+}
+
+.input_area{
+    outline: none;
+}
+
+.input_name{
+    position: absolute;
+    margin-left: 15%;
+    font-size: 1.4vw;
+}
+
+.first{
+    margin-top: 6%;
+}
+
+
+.btn{
+    position: absolute;
+    margin-top: 12%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5vw;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    border: groove white;
+}
+
+.second{
+    margin-top: 25%;
+    background-color: rgb(221, 34, 65);
+}
+
+.remove{
+    position: absolute;
+    margin-left: 68%;
+    height: 3vw;
+    font-size: 1.5vw;
+    background-color: red;
+    border-radius: 12px;
+    border:solid white;
+    color: white;
+}
+
+.remove:hover{
+    cursor: pointer;
+}
+
+.remove_b{
+    position: absolute;
+    margin-left: 63%;
+    top: 42px;
+    background-color: rgb(0, 88, 110);
+    z-index: 1;
+    width: 25%;
+    height: 25vw;
+    border: double wheat;
+    border-radius: 10px;
+    display: none;
+
+}
+
+.select_b{
+    display: block;
+    margin-left: 17%;
+    margin-top: 10%;
+    width: 65%;
+    height: 2.5vw;
+    border-radius: 10px;
+}
+
+.opt{
+    position: absolute;
+    margin-left: 32%;
+    margin-top: 4vw;
+    width: 42%;
+    font-style: italic;
+    font-size: 1.2vw;
+    height: 2.5vw;
+    border-radius: 10px;
+    text-transform: uppercase;
+    color: rgb(0, 88, 110);
+    
+}
+
+.opt:focus{
+    outline: none;
+}
+
+.opt option{
+    text-align: center;
+}
+
+.open{
+    position: absolute;
+    font-size: 1.7vw;
+    border-radius: 10px;
+    margin-left: 50%;
+    margin-top: 7.2%;
+    border: solid wheat;
+    cursor: pointer;
+    background-color: blue;
+    color: white;
+}
+
+/* Css for the body*/
+
+.main_body{
+    width: 90%;
+    height: 45vw;
+    background: linear-gradient(to right, rgb(62, 73, 122), rgb(11, 178, 190), rgb(62, 73, 122), rgb(11, 178, 190), rgb(62, 73, 122));
+    margin-left: 5%;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: double white;
+    box-shadow: 
+    0 14px 28px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.vertical_line{
+    border:groove #ffffff;
+    height: 44.5vw;
+    position: absolute;
+    left: 50%;
+    display: none;
+}
+
+.balance_sheet{
+    position: absolute;
+    width: 44%;
+    height: 44.5vw;
+}
+
+.profit_loss{
+    position: absolute;
+    width: 44%;
+    height: 44.5vw;
+    left: 50.4%;
+}
+
+.statement1{
+    position: relative;
+    text-align: center;
+    color: white;
+    font-size: 1.5vw;
+}
+
+.statement2{
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.1vw;
+}
+
+.label1{
+    background: linear-gradient(to right, rgb(62, 73, 122), rgb(11, 178, 190), rgb(62, 73, 122));
+    position: absolute;
+    margin-top: 12%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 70%;
+    height: 4vw;
+    border: double wheat;
+    border-radius: 2px;
+    border-bottom: none;
+
+}
+
+.label2{
+    background: linear-gradient(to right, rgb(62, 73, 122), rgb(11, 178, 190), rgb(62, 73, 122));
+    position: absolute;
+    margin-top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 70%;
+    height: 3vw;
+    border: double wheat;
+    border-radius: 2px;
+    border-top: solid;
+}
+
+.label3{
+    background: linear-gradient(to right, rgb(62, 73, 122), rgb(11, 178, 190), rgb(62, 73, 122));
+    position: absolute;
+    margin-top: 32%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 70%;
+    height: 4vw;
+    border: double wheat;
+    border-radius: 2px;
+    border-bottom: none;
+}
+
+.label4{
+    background: linear-gradient(to right, rgb(62, 73, 122), rgb(11, 178, 190), rgb(62, 73, 122));
+    position: absolute;
+    margin-top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 70%;
+    height: 3vw;
+    border: double wheat;
+    border-radius: 2px;
+    border-top: solid;
+}
+
+.label5{
+    background: linear-gradient(to right, rgb(62, 73, 122), rgb(11, 178, 190), rgb(62, 73, 122));
+    position: absolute;
+    margin-top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 70%;
+    height: 4vw;
+    border: double wheat;
+    border-radius: 2px;
+}
+
+.label{
+    position: absolute;
+    left: 10px;
+    margin-top: 3%;
+    font-size: 1.8vw;
+    cursor: pointer;
+}
+
+.figure{
+    position: absolute;
+    right: 10px;
+    margin-top: 4%;
+    font-size: 1.5vw;
+    cursor: pointer;
+}
+
+.label_1{
+    position: absolute;
+    left: 10px;
+    margin-top: 0%;
+    font-size: 1.3vw;
+    cursor: pointer;
+}
+
+.figure_1{
+    position: absolute;
+    right: 10px;
+    margin-top: 0%;
+    font-size: 1.2vw;
+    cursor: pointer;
+}
+
+.label_2{
+    position: absolute;
+    left: 10px;
+    margin-top: 5%;
+    font-size: 1.3vw;
+    cursor: pointer;
+}
+
+.figure_2{
+    position: absolute;
+    right: 10px;
+    margin-top: 5%;
+    font-size: 1.2vw;
+    cursor: pointer;
+}
+
+.label_3{
+    position: absolute;
+    left: 10px;
+    margin-top: 3%;
+    font-size: 1.3vw;
+    cursor: pointer;
+}
+
+.figure_3{
+    position: absolute;
+    right: 10px;
+    margin-top: 3%;
+    font-size: 1.2vw;
+    cursor: pointer;
+}
+
+.under:hover{
+    text-decoration: underline;
+    color: aqua;
+    cursor: pointer;
+}
+
+
+/* css for home Tail*/
+
+.tail{
+    width: 99%;
+    height: 2rem;
+    margin-top: 60px;
+}
+
+.tail1{
+    position: absolute;
+    color: white;
+    font-size: 1.7vw;
+    padding: 2px;
+}
+
+.social{
+    position: absolute;
+    color: white;
+    left: 48%;
+    font-size: 1.7vw;
+    padding: 2px;
+}
+
+.social1:hover{
+    font-style: italic;
+    cursor: pointer;
+}

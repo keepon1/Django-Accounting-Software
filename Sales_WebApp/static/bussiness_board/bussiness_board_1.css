@@ -1,0 +1,1335 @@
+/* css for home Header*/
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+.head{
+    width: 99.2%;
+    height: 50px;
+}
+
+.greet{
+    position: absolute;
+    color: white;
+    font-size: 1.8vw;
+    margin-top: 8px;
+    font-style: italic;
+    width: 42%;
+
+}
+
+.greets{
+    font-size: 2.2vw;
+    font-style: normal;
+}
+
+.logo{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.log{
+    position: absolute;
+    left: 72%;
+    top: 21px;
+    color: white;
+}
+
+.logs{
+    padding: 6px;
+    color: white;
+    font-size: 1.8vw;
+    text-decoration: none;
+}
+
+.logs:hover{
+    font-style: italic;
+    text-decoration: underline;
+}
+
+/* Css for the body*/
+
+.header{
+    margin-top: 0px;
+    text-transform: uppercase;
+    color: white;
+    font-size: 1.8vw;
+    text-align: center;
+    margin-top: 0.5%;
+}
+
+.main_body{
+    width: 87.8vw;
+    height: 45vw;
+    background: linear-gradient(to right, rgb(51, 100, 112), rgb(51, 100, 112), rgb(11, 178, 190), rgb(11, 178, 190), rgb(11, 178, 190), rgb(51, 100, 112));
+    margin-left: 5%;
+    margin-top: 0%;
+    border-radius: 10px;
+    border: double white;
+    box-shadow: 
+    0 14px 28px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.feature_container{
+    display: block;
+    position: absolute;
+    width: 13.9vw;
+}
+
+.feature_label{
+    display: block;
+}
+
+.feature{
+    background-color: inherit;
+    color: white;
+    font-size: 1.8vw;
+    cursor: pointer;
+    display: inline-flex;
+    width: 100%;
+    height: 4vw;
+    border-color: white;
+    z-index: 3;
+    
+}
+
+
+.first{
+    border-top: none;
+}
+
+
+.image{
+    width: 2.6vw;
+    height: 2.2vw;
+    position: absolute;
+    margin-top: 5%;
+}
+
+.word{
+    margin-left: 21%;
+    font-size: 1.8vw;
+    margin-top: 7%;
+}
+
+.invent_box{
+    border: solid 1px wheat;
+    display: none;
+}
+
+.invent{
+    display: inline-block;
+    text-align: left;
+    background-color: inherit;
+    border: none;
+    color: wheat;
+    font-size: 1.3vw;
+}
+
+.invent:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.quantity{
+    right: 3px;
+    position: absolute;
+    font-size: 1vw;
+}
+
+.transaction_container{
+    position: absolute;
+    width: 73.9vw;
+    height: 44.6vw;
+    margin-left: 13.78vw;
+    display: none;
+
+}
+
+.one{
+    display: block;
+}
+
+.workarea_header{
+    color: white;
+    position: absolute;
+    margin-top: 3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-size: 1.8vw;
+    font-family: sans-serif;
+}
+
+.workarea_label{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    overflow-y: scroll;
+}
+
+/*style for summary */
+
+.asset_container{
+    margin-top: 1%;
+    height: 11vw;
+    width: 99.5%;
+    display: flex;
+    flex-direction: row;
+    gap: 3.5%;
+    color: white;
+}
+
+.asset_label{
+    border-radius: 50%;
+    height: 10vw;
+    width: 10vw;
+    border: double dodgerblue;
+    background-color: dodgerblue;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.asset_items{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1vw;
+}
+
+.asset_head{
+    font-size: 1.8vw;
+    margin-top: 25%;
+    font-family: sans-serif;
+}
+
+.daily_info_container{
+    width: 99%;
+    height: 24vw;
+    color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+.daily_info_head{
+    margin-left: 45%;
+    font-size: 1.5vw;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+.daily_sales_label{
+    width: 12%;
+    height: 22vw;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    margin-left: 2%;
+    gap: 2%;
+}
+
+.daily_sales_circle{
+    width: 7vw;
+    height: 7vw;
+    background-color: dodgerblue;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.daily_sales_items{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.8vw;
+}
+
+.daily_sales_items_head{
+    font-size: 1.3vw;
+    font-family: sans-serif;
+    margin-top: 28%;
+}
+
+.plot_container{
+    width: 42%;
+    height: 22vw;
+    margin-left: 1%;
+    margin-top: 1%;
+}
+
+.bigger_frame{
+    position: fixed;
+    width: 90;
+    height: 100vh;
+    z-index: 2;
+    margin-left: 4.5%;
+    color: white;
+    display: none;
+    margin-top: -7px;
+    background-color: white;
+}
+
+.big_frame{
+    border: solid 1px dodgerblue;
+    width: 90vw;
+    height: 92.5vh;
+    margin-top: 1%;
+}
+
+.clear_frame{
+    position: absolute;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    right: 0;
+    font-size: 1.3vw;
+    cursor: pointer;
+}
+
+.plot_head{
+    font-size: 1.1vw;
+    display: table;
+    margin: 0 auto;
+}
+
+.plot_head_1{
+    font-size: 2vw;
+    display: table;
+    margin: 0 auto;
+    color: dodgerblue;
+}
+
+.daily_pie_label{
+    width: 100%;
+    height: 20vw;
+    margin-top: 1%;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+
+.daily_bar_label{
+    width: 100%;
+    height: 20vw;
+    margin-top: 1%;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+
+.col{
+    border: solid 1px;
+    font-size: 1.2vw;
+}
+
+.col_1{
+    font-size: 1.2vw;
+}
+
+
+.childs{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    text-align: right;
+}
+
+.chd{
+    text-align: left;
+}
+
+
+
+.scroll{
+    display: block;
+    width: 100%;
+}
+
+
+/* style for inventory items */
+
+.item_btn_1{
+    position: absolute;
+    margin-top: 1.5vw;
+    left: 8%;
+    transform: translate(-50%, -50%);
+    color: aliceblue;
+    background-color: inherit;
+    font-size: 1.5vw;
+    border-radius: 5px;
+    border: solid 1px aliceblue;
+    cursor: pointer;
+}
+
+.item_search{
+    position: absolute;
+    margin-top: 2.2%;
+    left: 66%;
+    transform: translate(-50%, -50%);
+    height: 2vw;
+    border-radius: 5px;
+    font-size: 1.4vw;
+    width: 20%;
+}
+
+.item_search:focus{
+    outline: none;
+}
+
+.item_search_icon{
+    position: absolute;
+    margin-top: 2.5%;
+    left: 81.5%;
+    transform: translate(-50%, -50%);
+    height: 2vw;
+    font-size: 1.5vw;
+    color: aliceblue;
+}
+
+.search_criteria{
+    position: absolute;
+    margin-top: 2.2%;
+    left: 93%;
+    transform: translate(-50%, -50%);
+    height: 2vw;
+    border-radius: 5px;
+    font-size: 1.2vw;
+}
+
+.search_criteria:focus{
+    outline: none;
+}
+
+.non_scroll{
+    overflow: hidden;
+}
+
+.list_of_items{
+    border-top: solid 2px wheat;
+    height: 37.5vw;
+    width: 100%;
+    margin-top: 3vw;
+}
+
+.item_btn_2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: aliceblue;
+    background-color: dodgerblue;
+    font-size: 2vw;
+    border-radius: 5px;
+    border: solid 1px aliceblue;
+    cursor: pointer;
+}
+
+.create_items_container{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    z-index: 1;
+    color: aliceblue;
+    display: none;
+}
+
+.create_label{
+    border-bottom: solid 2px wheat;
+    width: 100%;
+    height: 2.8vw;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.items_container{
+    color: aliceblue;
+    overflow-y: scroll;
+    height: 37vw;
+}
+
+.items_table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.middle{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.right{
+    text-align: right;
+    text-transform: capitalize;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.left{
+    text-align: left;
+    text-transform: capitalize;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.eye{
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1vw;
+}
+
+.control_pane{
+    position: relative;
+    cursor: pointer;
+    margin-top: 1%;
+    font-size: 1.4vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.close_btn{
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.1vw;
+    position: absolute;
+    right: 3px;
+}
+
+.add_container{
+    overflow-y: scroll;
+    height: 34vw;
+}
+
+.create_table{
+    width: 99%;
+    margin-top: 0px;
+    border-collapse: collapse;
+    height: 100px;
+}
+
+.create_header{
+    position: sticky;
+    top: -1px;
+    background-color: rgb(4, 148, 148);
+    height: 2vw;
+}
+
+.input{
+    width: 96%;
+    border-radius: 4px;
+    height: 1.5vw;
+    font-size: 1.2vw;
+}
+
+.input:focus{
+    outline: none;
+}
+
+.add_line_btn{
+    margin-left: 1.5%;
+    border: solid 2px aliceblue;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.3vw;
+    background-color: dodgerblue;
+}
+
+.add_inventory_btn{
+    color: aliceblue;
+    background-color: dodgerblue;
+    font-size: 1.5vw;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline;
+    margin-left: 43%;
+    margin-top: 5px;
+}
+
+
+.view_item_container{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    z-index: 1;
+    color: aliceblue;
+    display: none;
+}
+
+.view_item_label{
+    width: 99%;
+    position: absolute;
+    height: 38vw;
+    margin-top: 3.6%;
+}
+
+.view_item_head{
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.view_discription{
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 17%;
+}
+
+.view_colons{
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 45%;
+}
+
+.view_detail{
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 70%;
+}
+
+.view_singles{
+    display: block;
+    margin: 1.5vw;
+    text-transform: capitalize;
+}
+
+.view_edit{
+    position: absolute;
+    bottom: 6%;
+    left: 49%;
+    transform: translate(-70%, -50%);
+    border-radius: 15px;
+    font-size: 2vw;
+}
+
+.edit_item_container{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    z-index: 1;
+    color: aliceblue;
+    display: none;
+}
+
+.edit_item_label{
+    width: 99%;
+    position: absolute;
+    height: 38vw;
+}
+
+.edit_item_head{
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.edit_left_frame{
+    position: absolute;
+    margin-top: 8%;
+    margin-left: 18%;
+}
+
+.edit_right_frame{
+    position: absolute;
+    margin-top: 8%;
+    margin-left: 58%;
+}
+
+.label{
+    position: absolute;
+    margin-top: 10%;
+    font-size: 1.5vw;
+}
+
+.input_1{
+    margin-top: 20%;
+    width: 17vw;
+    height: 1.8vw;
+    border-radius: 5px;
+    font-size: 1.5vw;
+}
+
+.input_1:focus{
+    outline: none;
+}
+
+.input_2{
+    margin-top: 20%;
+    width: 17.8vw;
+    height: 2vw;
+    border-radius: 5px;
+    font-size: 1.5vw;
+}
+
+.input_2:focus{
+    outline: none;
+}
+
+.warning{
+    display: none;
+    color: red;
+}
+
+.edit_update{
+    background-color: green;
+    border-radius: 8px;
+    color: aliceblue;
+    font-size: 1.8vw;
+    position: absolute;
+    bottom: 10%;
+    margin-left: 40%;
+}
+
+.edit_delete{
+    background-color: red;
+    border-radius: 8px;
+    color: aliceblue;
+    font-size: 1.8vw;
+    position: absolute;
+    bottom: 10%;
+    margin-left: 51%;
+}
+
+/* style for inventory location*/
+
+.collect_location_table{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4%;
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.collect_location_input{
+    width: 98%;
+    font-size: 1.1vw;
+}
+
+.add_location_line{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+.location_line_btn{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.edit_location_wrapper{
+    width: fit-content;
+    margin-top: 15%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.edit_location_chain{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.edit_location_word{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3vw;
+}
+
+.edit_location_input{
+    width: 15vw;
+    height: 1.6vw;
+    border-radius: 7px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1vw;
+}
+
+.edit_location_input:focus{
+    outline: none;
+}
+
+.edit_loc_input{
+    width: 5vw;
+}
+
+.location_btn_container{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    gap: 2%;
+}
+
+.location_update_btn{
+    background-color: green;
+    border-radius: 7px;
+    font-size: 1.4vw;
+    color: white;
+}
+
+.location_delete_btn{
+    background-color: red;
+    border-radius: 7px;
+    font-size: 1.4vw;
+    color: white;
+}
+
+.parameters_in_location{
+    display: flex;
+    flex-direction: row;
+    margin: auto auto;
+    width: 86%;
+    gap: 1.4%;
+}
+
+.parameters_btn{
+    font-size: 1.4vw;
+    border-radius: 10px;
+    background-color: dodgerblue;
+    cursor: pointer;
+}
+
+.parameters_label{
+    width: 100%;
+    height: 34.8vw;
+    overflow-y: scroll;
+}
+
+
+
+/*style for sales invoice*/
+
+.create_sales_container{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    z-index: 1;
+    color: aliceblue;
+    display: none;
+}
+
+.sales_add_container{
+    position: absolute;
+    height: 34vw;
+    width: 100%;
+}
+
+.customer_wrapper{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    gap: 20%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sales_customer_1{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7vw;
+}
+
+.sales_customer_2{
+    display: flex;
+    flex-direction: column;
+    gap: 0.69vw;
+}
+
+.input_frame{
+    display: flex;
+    flex-direction: column;
+}
+
+.sales_customer_text{
+    font-size: 1.3vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sales_customer_input{
+    height: 1.6vw;
+    border-radius: 5px;
+    font-size: 1.2vw;
+    width: 110%;
+}
+
+.sales_customer_input:focus{
+    outline: none;
+}
+
+.sales_overflow{
+    overflow-y: scroll;
+    height: 20vw;
+    width: 100%;
+    margin-top: 1%;
+}
+
+.create_sales_table{
+    width: 90%;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sales_create_header{
+    position: sticky;
+    top: 0;
+    background-color: rgb(4, 148, 148);
+}
+
+.sales_input{
+    width: 96%;
+    border-radius: 5px;
+    height: 1.5vw;
+    font-size: 1vw;
+}
+
+.sales_input:focus{
+    outline: none;
+}
+
+.item_datalist{
+    background-color: aqua;
+}
+
+.data_value{
+    width: 20px;
+}
+
+.transaction_location{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.2%;
+    margin-left: 1.2%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.select_location_head{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3vw;
+}
+
+.select_location{
+    width: 27%;
+    height: 1.7vw;
+    border-radius: 5px;
+    font-size: 1.2vw;
+}
+
+.select_location:focus{
+    outline: none;
+}
+
+.sales_add_inventory_btn{
+    color: aliceblue;
+    background-color: dodgerblue;
+    font-size: 1.7vw;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 2.5vw;
+    display: inline;
+    margin-left: 38%;
+    margin-top: 34.5vw;
+}
+
+.view_sales_wrapper{
+    width: 99.8%;
+    height: 37.8vw;
+    overflow-y: scroll;
+}
+
+.view_sales_head{
+    margin-left: 40%;
+    font-size: 3vw;
+}
+
+.view_sales_details{
+    width: 30%;
+    border-radius: 5px;
+    margin-left: 55%;
+    margin-top: 2vw;
+    background-color: rgb(10, 109, 139);
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.view_sales_detail{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    margin-left: 3%;
+}
+
+.view_sales_colon{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.view_sales_fills{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+.view_sales_word{
+    font-size: 1.2vw;
+}
+
+
+.view_sales_description{
+    text-align: center;
+    font-size: 1.8vw;
+    text-transform: uppercase;
+}
+
+.view_sales_table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.view_sales_header{
+    background-color: rgb(10, 109, 139);
+    height: 2vw;
+}
+
+.sales_col{
+    border: solid 1px rgb(66, 106, 167); 
+    background-color: rgb(10, 109, 139);
+    height: 2vw;
+}
+
+.view_sales_edit_btn{
+    margin-left: 45%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1.3vw;
+    color: aliceblue;
+    background-color: rgb(10, 109, 139);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.edit_sales_container{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    z-index: 1;
+    color: aliceblue;
+    display: none;
+}
+
+.edit_sales_update_btn{
+    background-color: green;
+    color: aliceblue;
+    border-radius: 5px;
+    font-size: 1.5vw;
+    margin-top: 35vw;
+    margin-left: 43%;
+}
+
+.edit_sales_delete_btn{
+    background-color: red;
+    color: aliceblue;
+    border-radius: 5px;
+    font-size: 1.5vw;
+    margin-top: 35vw;
+}
+/*style for purchase invoice*/
+
+.create_purchase_container{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    z-index: 1;
+    color: aliceblue;
+    display: none;
+}
+
+.purchase_add_container{
+    position: absolute;
+    height: 34vw;
+    width: 100%;
+}
+
+.supplier_wrapper{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    gap: 20%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.purchase_supplier_1{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7vw;
+}
+
+.purchase_supplier_2{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7vw;
+}
+
+
+.input_frame{
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase_supplier_text{
+    font-size: 1.3vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.purchase_supplier_input{
+    height: 1.6vw;
+    border-radius: 5px;
+    font-size: 1.2vw;
+    width: 110%;
+}
+
+.purchase_supplier_input:focus{
+    outline: none;
+}
+
+.purchase_overflow{
+    overflow-y: scroll;
+    height: 20vw;
+    width: 100%;
+    margin-top: 1%;
+}
+
+.create_purchase_table{
+    width: 90%;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.purchase_create_header{
+    position: sticky;
+    top: 0;
+    background-color: rgb(4, 148, 148);
+}
+
+.purchase_input{
+    width: 96%;
+    border-radius: 5px;
+    height: 1.5vw;
+    font-size: 1vw;
+}
+
+.purchase_input:focus{
+    outline: none;
+}
+
+.item_datalist{
+    background-color: aqua;
+}
+
+.data_value{
+    width: 20px;
+}
+
+.purchase_add_inventory_btn{
+    color: aliceblue;
+    background-color: dodgerblue;
+    font-size: 1.7vw;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline;
+    margin-left: 38%;
+    margin-top: 34vw;
+}
+
+.view_purchase_wrapper{
+    width: 99.8%;
+    height: 37.8vw;
+    overflow-y: scroll;
+}
+
+.view_purchase_head{
+    margin-left: 40%;
+    font-size: 3vw;
+}
+
+.view_purchase_details{
+    width: 30%;
+    border-radius: 5px;
+    margin-left: 55%;
+    margin-top: 2vw;
+    background-color: rgb(10, 109, 139);
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.view_purchase_detail{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    margin-left: 3%;
+}
+
+.view_purchase_colon{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.view_purchase_fills{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.view_purchase_word{
+    font-size: 1.2vw;
+}
+
+.view_purchase_description{
+    text-align: center;
+    font-size: 1.8vw;
+    text-transform: uppercase;
+}
+
+.view_purchase_table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.view_purchase_header{
+    background-color: rgb(10, 109, 139);
+    height: 2vw;
+}
+
+.purchase_col{
+    border: solid 1px rgb(66, 106, 167); 
+    background-color: rgb(10, 109, 139);
+    height: 2vw;
+}
+
+.view_purchase_edit_btn{
+    margin-left: 45%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1.3vw;
+    color: aliceblue;
+    background-color: rgb(10, 109, 139);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.edit_purchase_container{
+    position: absolute;
+    border: solid 2px wheat;
+    width: 100%;
+    height: 40.9vw;
+    margin-top: 4vw;
+    border-right: none;
+    border-bottom: none;
+    z-index: 1;
+    color: aliceblue;
+    display: none;
+}
+
+.edit_purchase_update_btn{
+    background-color: green;
+    color: aliceblue;
+    border-radius: 5px;
+    font-size: 1.5vw;
+    margin-top: 35vw;
+    margin-left: 43%;
+}
+
+.edit_purchase_delete_btn{
+    background-color: red;
+    color: aliceblue;
+    border-radius: 5px;
+    font-size: 1.5vw;
+    margin-top: 35vw;
+}
+
+/* css for home Tail*/
+
+.tail{
+    width: 99%;
+    height: 2rem;
+    margin-top: 3%;
+}
+
+.tail1{
+    position: absolute;
+    color: white;
+    font-size: 1.7vw;
+    padding: 2px;
+}
+
+.social{
+    position: absolute;
+    color: white;
+    left: 48%;
+    font-size: 1.7vw;
+    padding: 2px;
+}
+
+.social1:hover{
+    font-style: italic;
+    cursor: pointer;
+}

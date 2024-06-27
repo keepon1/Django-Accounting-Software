@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" media="(min-width: 900px)" href="{% static 'home/home_1.css' %}">
+    <link rel="stylesheet" media="(max-width: 899px) and (min-width: 481px)" href="{% static 'home/home_2.css' %}">
+    <link rel="stylesheet" media="(max-width: 480px)" href="{% static 'home/home_3.css' %}">
+    <script src="{% static 'home/home.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'fontawesome-free-6.5.1-web\css\all.css'%}">
+    <link rel="shortcut icon" href="{% static 'home/logo.jpg' %}">
+</head>
+<body class="main_body">
+
+    <div class="head">
+
+        <img src="{% static 'home/logo.jpg'%}" alt="" class="logo">
+
+        <div class="bars">
+            <span class="bar" id="bar" onclick="display()"><i class="fa fa-bars"></i></span>
+        </div>
+
+        <div class="menu" id="menu">
+
+            <span class="times" onclick="display_non()"><i class="fa fa-times"></i></span>
+            <span class="menus" onclick="location.href='{% url 'home' %}'"><i class="fa fa-home"></i> Home</span>
+            <span class="menus"><i class="fa fa-address-book"></i> Contact</span>
+            <span class="menus"><i class="fa fa-user"></i> Account</span>
+            <span class="menus"><i class="fa fa-users"></i> About Us</span>
+
+        </div>
+
+        <div class="log">
+
+            <a href="{% url 'sign_in' %}" class="logs">Sign In</a>
+            <a href="{% url 'register'  %}" class="logs">Register</a>
+
+        </div>
+    </div>
+
+
+
+    <div class="body">
+
+        <div class="body1" style="display: block;">
+
+            <div class="main">
+                <h2 class="header">Simple Sales WebApp</h2>
+
+                <p class="paragraph">
+                    This web application is designed to suite small and large sales Companies
+                    to take records. It is developed to be a user friendly webapp.
+                    It needs little or no tutorials to use this webApplication because the terms
+                    used are Simple and Understandable. Moreover, the terms used are explained
+                    at the tutorial section. Hence, anyone can use it with ease.
+                </p>
+
+            </div>
+
+            <img src="{% static 'home/01.jpg' %}" alt="pic" class="image">
+        </div>
+
+        <div class="body1">
+
+            <div class="main">
+                <h2 class="header">Track And Retrive Your Records</h2>
+
+                <p class="paragraph">
+                    This webApplication is disigned in a way that data recorded 
+                    are been stored in a systematic order. The data recordeed over time
+                    will be sorted and arranged when retrived or displayed in a way a 
+                    user wants.This is been done with a specification from the user.
+                    Therefore, tracking and retriving records in this webApp is relatively
+                    easy and sorted
+                </p>
+
+            </div>
+
+            <img src="{% static 'home/02.jpg' %}" alt="pic" class="image">
+        </div>
+
+        <div class="body1 fade">
+
+            <div class="main">
+                <h2 class="header">Statistics And Data Analysis</h2>
+
+                <p class="paragraph">
+                    This webApp intends to communicate to its user statistically by
+                    plotting graphs and charts of performances with available data.
+                    This graphs and charts will done daily, monthly and yearly. Data 
+                    Analysis too will be performed on the data to forecast and aid in 
+                    decision making.
+                </p>
+
+            </div>
+
+            <img src="{% static 'home/03.webp' %}" alt="pic" class="image">
+        </div>
+
+        <span class="left" onclick="plusSlides(-1)"><i class="fa fa-chevron-left"></i></span>
+        <span class="right" onclick="plusSlides(1)"><i class="fa fa-chevron-right"></i></span>
+
+    </div>
+
+
+
+    <div class="tail">
+
+        <div class="tail1">@ 2020-2024</div>
+
+        <div class="social">
+            <span class="social1"><i class="fa-brands fa-whatsapp"></i> 0240234163</span>
+            <span class="social1"><i class="fa-brands fa-facebook"></i> keepon1</span>
+            <span class="social1"><i class="fa-brands fa-instagram"></i> madover_1</span>
+            <span class="social1"><i class="fa-brands fa-x-twitter"></i> chris_ jhunia</span>
+            <span class="social1"><i class="fa-brands fa-tiktok"></i> keepon_1</span>
+        </div>
+
+    </div>
+    
+    
+</body>
+</html>

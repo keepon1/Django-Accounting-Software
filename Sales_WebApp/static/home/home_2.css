@@ -1,0 +1,131 @@
+/* css for home Header*/
+.head{
+    width: 99%;
+    height: 50px;
+}
+
+.logo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    left: 42%;
+}
+
+.bars{
+    position: absolute;
+    top: 15px;
+    cursor: pointer;
+}
+
+.bar{
+    color: white;
+    font-size: 4.5vw;
+}
+
+.menu{
+    width: 30%;
+    color: white;
+    position: absolute;
+    top: 15px;
+    display: none;
+}
+
+.times{
+    font-size: 5vw;
+}
+
+.menus{
+    font-size: 4vw;
+    display: block;
+    padding: 6px;
+}
+
+.menus:hover{
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+
+
+
+.log{
+    position: absolute;
+    left: 70%;
+    top: 21px;
+    color: white;
+}
+
+.logs{
+    padding: 3px;
+    color: white;
+    font-size: 3.5vw;
+    text-decoration: none;
+}
+
+.logs:hover{
+    font-style: italic;
+    text-decoration: underline;
+}
+
+
+/* css for home Body*/
+
+.body{
+    color: white;
+}
+
+.header{
+    text-align: center;
+    font-size: 7vw;
+}
+
+.paragraph{
+    text-align: center;
+    font-size: 4vw;
+}
+
+.image{
+    width: 60vw;
+    height: 60vw;
+    border: double white;
+    border-radius: 50%;
+    margin-left: 17.5%;
+}
+.left{
+    display: none;
+}
+
+.right{
+    display: none;
+}
+
+
+/* css for home Tail*/
+
+.tail{
+    width: 99%;
+    height: 2rem;
+    margin-top: 60px;
+}
+
+.tail1{
+    position: absolute;
+    color: white;
+    font-size: 3vw;
+    padding: 2px;
+}
+
+.social{
+    position: absolute;
+    color: white;
+    left: 48%;
+    font-size: 3vw;
+    padding: 2px;
+}
+
+.social1:hover{
+    font-style: italic;
+    cursor: pointer;
+}

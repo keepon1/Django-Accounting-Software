@@ -1,0 +1,233 @@
+/* css for home Header*/
+
+.head{
+    width: 99.2%;
+    height: 50px;
+}
+
+.logo{
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    position: absolute;
+    left: 5%;
+    font-size: 2vw;
+}
+
+.menu{
+    position: absolute;
+    color: white;
+    left: 28%;
+    top: 21px;
+    width: 53%;
+    height: 32px;
+}
+
+.bar{
+    display: none;
+}
+
+.times{
+    display: none;
+}
+
+.menus{
+    padding: 4px;
+    font-size: 2vw;
+}
+
+.menus:hover{
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.log{
+    position: absolute;
+    left: 83%;
+    top: 21px;
+    color: white;
+}
+
+.logs{
+    padding: 6px;
+    color: white;
+    font-size: 1.8vw;
+    text-decoration: none;
+}
+
+.logs:hover{
+    font-style: italic;
+    text-decoration: underline;
+}
+
+
+/* css for home Body*/
+
+.body{
+    width: 70%;
+    height: 50vw;
+    background-color: rgb(1, 125, 156);
+    display: flex;
+    flex-direction: row;
+    margin-left: 15%;
+    margin-top: 2vw;
+    border-radius: 10px;
+    border: double white;
+    box-shadow: 
+    0 14px 28px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login{
+    width: 34vw;
+    height: 49.5vw;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, rgb(18, 84, 110), rgb(11, 190, 176));
+    border: double white;
+    border-radius: 5px;
+}
+
+.info{
+    margin-top: 2%;
+    width: 20vw;
+    margin: 0 auto;
+    font-size: 2vw;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.info1{
+    display: table;
+    font-size: 1.5vw;
+    border-radius: 15px;
+    height: 2.6vw;
+    margin: 6vw auto;
+}
+
+
+.logup{
+    width: 34vw;
+    height: 49.5vw;
+    color: white;
+    border: double white;
+    background: linear-gradient(to right, rgb(11, 190, 176), rgb(18, 84, 110));
+    border-radius: 5px;
+}
+
+
+.up{
+    display: table;
+    margin: 1vw auto;
+    font-size: 2vw;
+}
+
+.exist{
+    position: absolute;
+    color: red;
+}
+
+.exists{
+    position: absolute;
+    color: red;
+}
+
+
+.input_containers{
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 1.6vw;
+    height: fit-content;
+}
+
+.label{
+    font-size: 1.4vw;
+    margin-top: 1.2vw;
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.input{
+    display: block;
+    width: 22vw;
+    height: 1.8vw;
+    border-radius: 5px;
+    font-size: 1.4vw;
+    border: double rgb(1, 125, 156);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.input:focus{
+    outline: none;
+}
+
+.regis{
+    display: table;
+    margin: 1.2vw auto;
+    font-size: 1.5vw;
+    border-radius: 20px;
+    height: 2.6vw;
+    cursor: pointer;
+}
+
+.line1{
+    margin-top: 2vw;
+    width: 99%;
+    border: solid 1px;
+}
+
+.or1{
+    background-color: rgb(45, 104, 119);
+    font-size: 1.5vw;
+    font-style: italic;
+    display: table;
+    margin: -1.3vw auto 0 auto;
+}
+
+.image1{
+    width: fit-content;
+    margin: 2vw auto;
+}
+
+.images1{
+    height: 3.5vw;
+    width: 3.5vw;
+    border-radius: 50%;
+    border: double rgb(1, 125, 156);
+    background-color: white;
+    margin-left: 2vw;
+}
+
+
+
+
+
+/* css for home Tail*/
+
+.tail{
+    width: 99%;
+    height: 2rem;
+    margin-top: 40px;
+}
+
+.tail1{
+    position: absolute;
+    color: white;
+    font-size: 1.7vw;
+    padding: 2px;
+}
+
+.social{
+    position: absolute;
+    color: white;
+    left: 48%;
+    font-size: 1.7vw;
+    padding: 2px;
+}
+
+.social1:hover{
+    font-style: italic;
+    cursor: pointer;
+}

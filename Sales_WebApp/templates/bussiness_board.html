@@ -1,0 +1,1728 @@
+{% load static %}
+{% load django_template_maths %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bussiness Board</title>
+    <link rel="stylesheet" media="(min-width: 900px)" href="{% static 'bussiness_board/bussiness_board_1.css' %}">
+    <link rel="stylesheet" media="(max-width: 899px) and (min-width: 481px)" href="{% static 'bussiness_board/bussiness_board_2.css' %}">
+    <link rel="stylesheet" media="(max-width: 480px)" href="{% static 'bussiness_board/bussiness_board_3.css' %}">
+    <script src="{% static 'bussiness_board/bussiness_board.js' %}"></script>
+    <script src="{% static 'plotly/plotly-2.32.0.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'fontawesome-free-6.5.1-web\css\all.css'%}">
+    <link rel="shortcut icon" href="{% static 'bussiness_board/logo.jpg' %}">
+</head>
+<body style="background-color: rgb(0, 88, 110);" id="body">
+
+    <script>
+        const data = {{json_data | safe}};
+        
+        const location_data ={{json_location | safe}};
+
+        const sales = {{json_sales | safe}};
+        const sales_list = {{prepared_sales | safe}};
+
+        const purchase = {{json_purchase | safe}};
+        const purchase_list = {{prepared_purchase | safe}};
+
+        let items = [[],[],[],[],[],[],[],[],[],[],[]]
+
+        let sales_data = [[],[],[],[],[],[],[]]
+        let sales_package = [[],[]]
+
+        let purchase_data = [[],[],[],[],[],[],[]]
+        let purchase_package = [[],[]]
+
+        data.forEach(item => {
+            items[0].push(item.fields.serial_or_imei);
+            items[1].push(item.fields.brand);
+            items[2].push(item.fields.item_name);
+            items[3].push(item.fields.starting_quantity);
+            items[4].push(item.fields.starting_purchase_price);
+            items[5].push(item.fields.starting_sales_price);
+            items[6].push(item.fields.creation_date);
+            items[7].push(item.fields.current_quantity);
+            items[8].push(item.fields.current_purchase_price);
+            items[9].push(item.fields.current_sales_price);
+            items[10].push(item.fields.location_address)
+        });
+
+        sales.forEach(item => {
+            sales_data[0].push(item.pk);
+            sales_data[1].push(item.fields.date);
+            sales_data[2].push(item.fields.customer);
+            sales_data[3].push(item.fields.phone);
+            sales_data[4].push(item.fields.address);
+            sales_data[5].push(item.fields.description);
+            sales_data[6].push(item.fields.sales_total);
+        });
+
+        sales_list.forEach(item => {
+            sales_package[0].push(item.ref);
+            sales_package[1].push(item.details);
+        });
+
+        purchase.forEach(item => {
+            purchase_data[0].push(item.pk);
+            purchase_data[1].push(item.fields.date);
+            purchase_data[2].push(item.fields.supplier);
+            purchase_data[3].push(item.fields.phone);
+            purchase_data[4].push(item.fields.address);
+            purchase_data[5].push(item.fields.description);
+            purchase_data[6].push(item.fields.purchase_total);
+        });
+
+        purchase_list.forEach(item => {
+            purchase_package[0].push(item.ref);
+            purchase_package[1].push(item.details);
+        });
+    </script>
+
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Percentage share of each item in daily sales</span>
+        <div class="big_frame" id="big_daily_pie"></div>
+    </div>
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Quantities of each item sold in a day</span>
+        <div class="big_frame" id="big_daily_bar"></div>
+    </div>
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Percentage share of items in monthly sales</span>
+        <div class="big_frame" id="big_monthly_pie"></div>
+    </div>
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Quantities of each item sold in the month</span>
+        <div class="big_frame" id="big_monthly_bar"></div>
+    </div>
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Trend of daily sales in the current month</span>
+        <div class="big_frame" id="big_monthly_line"></div>
+    </div>
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Percentage share of brands in the year's sales</span>
+        <div class="big_frame" id="big_yearly_pie"></div>
+    </div>
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Quantities of each brand sold in the year</span>
+        <div class="big_frame" id="big_yearly_bar"></div>
+    </div>
+    <div class="bigger_frame">
+        <button class="clear_frame" onclick="big_frame(8)"><i class="fa fa-times"></i></button>
+        <span class="plot_head_1">Trend of monthly sales in the current year</span>
+        <div class="big_frame" id="big_yearly_line"></div>
+    </div>
+
+
+    <div class="head">
+
+        <span class="greet">You are working @ <span class="greets">{{request.user}}</span></span>
+
+        <img src="{% static 'home/logo.jpg'%}" alt="" class="logo" id="logo">
+
+        <div class="log">
+
+            <a href="{% url 'company_page'%}" class="logs">Return to company page</a>
+            <a href="{% url 'sign_in' %}" class="logs">Sign Out</a>
+
+        </div>
+    </div>
+
+    <p class="header">{{bussiness}}</p>
+
+    <div class="main_body">
+        <div class="feature_container">
+            <div class="feature_label">
+                <button class="feature first" onclick="display_workarea(0)"><img src="{% static 'bussiness_board/summary.png' %}" class="image"> <span class="word">Summary</span></button>
+            </div>
+
+            <div class="feature_label">
+                <button class="feature" onclick="display_invent(0)"><img src="{% static 'bussiness_board/inventory.png' %}" class="image"> <span class="word">Inventory</span></button>
+                
+                <div class="invent_box">
+                    <button class="invent" onclick="display_workarea(1)">Inventory Items <span class="quantity">{{qty}}</span> </button>
+                    <button class="invent" onclick="display_workarea(2)">Inventory Locations <span class="quantity" id="loc"></span></button>
+                    <button class="invent" onclick="display_workarea(3)">Inventory Transfers <span class="quantity">0</span></button>
+                    <button class="invent" onclick="display_workarea(4)">Inventory Write-offs <span class="quantity">0</span></button>
+                </div>
+            </div>
+            
+            <div class="feature_label">
+                <button class="feature" onclick="display_invent(1)"><img src="{% static 'bussiness_board/sales.png' %}" class="image"> <span class="word">Sales</span></button>
+
+                <div class="invent_box">
+                    <button class="invent" onclick="display_workarea(5)">Sales Invoices<span class="quantity">0</span> </button>
+                    <button class="invent" onclick="display_workarea(6)">Sales Orders<span class="quantity">0</span></button>
+                    <button class="invent" onclick="display_workarea(7)">Customers<span class="quantity">0</span></button>
+                </div>
+            </div>
+
+            <div class="feature_label">
+                <button class="feature" onclick="display_invent(2)"><img src="{% static 'bussiness_board/purchases.png' %}" class="image"> <span class="word">Purchases</span></button>
+
+                <div class="invent_box" >
+                    <button class="invent" onclick="display_workarea(8)">Purchase Invoices<span class="quantity">0</span> </button>
+                    <button class="invent" onclick="display_workarea(9)">Purchase Orders<span class="quantity">0</span></button>
+                    <button class="invent" onclick="display_workarea(10)">Goods Receipts<span class="quantity">0</span></button>
+                    <button class="invent" onclick="display_workarea(11)">Suppliers<span class="quantity">20</span></button>
+                </div>
+            </div>
+
+            <div class="feature_label">
+                <button class="feature" onclick="display_workarea(12)"><img src="{% static 'bussiness_board/payment.png' %}" class="image"> <span class="word">Payments</span></button>
+            </div>
+
+            <div class="feature_label">
+                <button class="feature" onclick="display_workarea(13)"><img src="{% static 'bussiness_board/journal.png' %}" class="image"> <span class="word">Journals</span></button>
+            </div>
+
+            <div class="feature_label">
+                <button class="feature" onclick="display_invent(3)"><img src="{% static 'bussiness_board/report.png' %}" class="image"> <span class="word">Reports</span></button>
+
+                <div class="invent_box">
+                    <button class="invent" onclick="display_workarea(14)">Text Report</button>
+                    <button class="invent" onclick="display_workarea(15)">Visual Reports</button>
+                    <button class="invent" onclick="display_workarea(16)">Performance</button>
+                </div>
+            </div>
+
+            <div class="feature_label">
+                <button class="feature last" onclick="display_workarea(17)"><img src="{% static 'bussiness_board/setting.png' %}" class="image"> <span class="word">Settings</span></button>
+            </div>
+        </div>
+
+        <div class="transaction_container one">
+            <span class="workarea_header">Summary</span>
+
+            <div class="workarea_label">
+
+                
+
+                <div class="asset_container">
+                    <div class="asset_label">
+                        <span class="asset_items asset_head" id="total_asset">0</span>
+                        <span class="asset_items">Gh&#x20B5</span>
+                        <span class="asset_items">Total Asset</span>
+                    </div>
+                    <div class="asset_label">
+                        <span class="asset_items asset_head" id="inventory_value">0</span>
+                        <span class="asset_items">Gh&#x20B5</span>
+                        <span class="asset_items">Inventory value</span>
+                    </div>
+                    <div class="asset_label">
+                        <span class="asset_items asset_head" id="liquid_asset">0</span>
+                        <span class="asset_items">Gh&#x20B5</span>
+                        <span class="asset_items">Liquid Assets</span>
+                    </div>
+                    <div class="asset_label">
+                        <span class="asset_items asset_head" id="profit_today">0</span>
+                        <span class="asset_items">Gh&#x20B5</span>
+                        <span class="asset_items">Profit Today</span>
+                    </div>
+                    <div class="asset_label">
+                        <span class="asset_items asset_head" id="profit_month">0</span>
+                        <span class="asset_items">Gh&#x20B5</span>
+                        <span class="asset_items">Profit This Month</span>
+                    </div>
+                    <div class="asset_label">
+                        <span class="asset_items asset_head" id="profit_year">0</span>
+                        <span class="asset_items">Gh&#x20B5</span>
+                        <span class="asset_items">Profit This Year</span>
+                    </div>
+
+                </div>
+                
+
+                <span class="daily_info_head">Daily Picks</span>
+
+                <div class="daily_info_container">
+
+                    <div class="daily_sales_label">
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="today_quantity">0</span>
+                            <span class="daily_sales_items">pcs</span>
+                            <span class="daily_sales_items">Quantity Sold</span>
+                        </div>
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="today_sales">0</span>
+                            <span class="daily_sales_items">Gh&#x20B5</span>
+                            <span class="daily_sales_items">Total sales</span>
+                        </div>
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="today_cost">0</span>
+                            <span class="daily_sales_items">Gh&#x20B5</span>
+                            <span class="daily_sales_items">Total cost</span>
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Percentage share of each item in daily sales</span>
+                        <div class="daily_pie_label" id="daily_pie_label" onclick="big_frame(0)">
+
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Quantities of each item sold in a day</span>
+                        <div class="daily_bar_label" id="daily_bar_label" onclick="big_frame(1)">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <span class="daily_info_head">Monthly Picks</span>
+
+                <div class="daily_info_container">
+
+                    <div class="daily_sales_label">
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="monthly_quantity">0</span>
+                            <span class="daily_sales_items">pcs</span>
+                            <span class="daily_sales_items">Quantity Sold</span>
+                        </div>
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="monthly_sales">0</span>
+                            <span class="daily_sales_items">Gh&#x20B5</span>
+                            <span class="daily_sales_items">Total sales</span>
+                        </div>
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="monthly_cost">0</span>
+                            <span class="daily_sales_items">Gh&#x20B5</span>
+                            <span class="daily_sales_items">Total cost</span>
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Percentage share of items in monthly sales</span>
+                        <div class="daily_pie_label" id="monthly_pie_label" onclick="big_frame(2)">
+
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Quantities of each item sold in the month</span>
+                        <div class="daily_bar_label" id="monthly_bar_label" onclick="big_frame(3)">
+
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Trend of daily sales in the current month</span>
+                        <div class="daily_bar_label" id="monthly_line_label" onclick="big_frame(4)">
+
+                        </div>
+                    </div>
+                </div>
+
+                <span class="daily_info_head">Yearly Picks</span>
+
+                <div class="daily_info_container">
+
+                    <div class="daily_sales_label">
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="yearly_quantity">0</span>
+                            <span class="daily_sales_items">pcs</span>
+                            <span class="daily_sales_items">Quantity Sold</span>
+                        </div>
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="yearly_sales">0</span>
+                            <span class="daily_sales_items">Gh&#x20B5</span>
+                            <span class="daily_sales_items">Total sales</span>
+                        </div>
+                        <div class="daily_sales_circle">
+                            <span class="daily_sales_items daily_sales_items_head" id="yearly_cost">0</span>
+                            <span class="daily_sales_items">Gh&#x20B5</span>
+                            <span class="daily_sales_items">Total cost</span>
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Percentage share of brands in the year's sales</span>
+                        <div class="daily_pie_label" id="yearly_pie_label" onclick="big_frame(5)">
+
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Quantities of each brand sold in the year</span>
+                        <div class="daily_bar_label" id="yearly_bar_label" onclick="big_frame(6)">
+
+                        </div>
+                    </div>
+
+                    <div class="plot_container">
+                        <span class="plot_head">Trend of monthly sales in the current year</span>
+                        <div class="daily_bar_label" id="yearly_line_label" onclick="big_frame(7)">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Inventory Items</span>
+
+            <div class="workarea_label non_scroll" id="display_item">
+
+                <button class="item_btn_1" onclick="display_add_items(1)">add items</button>
+
+                <input type="search" name="" id="item_search" class="item_search" onkeyup="search_item(this)">
+                <span class="item_search_icon"><i class="fa fa-search"></i> search by</span>
+                <select name="" id="item_search_criteria" class="search_criteria">
+                    <option value="item name">item name</option>
+                    <option value="brand">brand</option>
+                    <option value="serial or imei">serial or imei</option>
+                </select>
+
+                <div class="list_of_items">
+
+                    {% if  exist%}
+                        <div class="items_container">
+                            <table class="items_table" id="item_display_table">
+                                <thead class="create_header">
+                                    <th class="col get_value">Edit</i></th>
+                                    <th class="col get_value">View</i></th>
+                                    <th class="col get_value">Serial or Imei</th>
+                                    <th class="col get_value">Brand</th>
+                                    <th class="col get_value">Item name</th>
+                                    <th class="col get_value">Qty on hand</th>
+                                    <th class="col get_value">Cost Average price</th>
+                                    <th class="col get_value">Sales price</th>
+                                    <th class="col get_value">Total cost</th>                                   
+                                </thead>
+
+                                <tbody id="item_display_table_body">
+                                    {% for i in items %}
+
+                                        <tr>
+                                            <td class="col middle"><button class="edit eye" onclick="edit_item(this)"><i class="far fa-edit"></i></button></td>
+                                            <td class="col middle"><button class="view eye" onclick="view_item(this)"><i class="fa fa-eye"></i></button></td>
+                                            <td class="col middle" id="item_serial">{{i.serial_or_imei}}</td>
+                                            <td class="col middle">{{i.brand}}</td>
+                                            <td class="col left">{{i.item_name}}</td>
+                                            <td class="col right">{{i.current_quantity}} pcs</td>
+                                            <td class="col right">Gh&#x20B5 {{i.current_purchase_price|floatformat:2}}</td>
+                                            <td class="col right">Gh&#x20B5 {{i.current_sales_price}}</td>
+                                            <td class="col right">Gh&#x20B5 {{i.total_cost|floatformat:2}}</td>
+                                        </tr>
+                                    
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <button class="item_btn_2" onclick="display_add_items(1)">add inventory items</button>
+                    {% endif %}
+
+                </div>
+                
+            </div>
+
+            <div class="create_items_container" id="add_item">
+                <div class="create_label">
+                    <span class="control_pane" onclick="display_add_items(2)">inventory items</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">add inventory items</span>
+                    <button class="control_pane close_btn" onclick="display_add_items(2)"> <i class="fa fa-times"></i></button>
+                </div>
+
+                <form action="{% url 'add_items' %}" method="post" id="clear_item_form">
+                    {% csrf_token %}
+
+                    <div class="add_container">
+
+                        <table class="create_table" id="come">
+                            <thead class="create_header">
+                                <th class="col_1">Serial Code or IMEI</th>
+                                <th class="col_1">Brand</th>
+                                <th class="col_1">Item Name</th>
+                                <th class="col_1">Quantity</th>
+                                <th class="col_1">Cost Price</th>
+                                <th class="col_1">Sales Price</th>
+                                <th class="col_1">Total Cost</th>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td class="child"><input type="text" name="serial" id="serial" class="input serial" placeholder="optional" onkeyup="check_items()"></td>
+                                    <td class="child"><input type="text" name="brand" id="" class="input" placeholder="optional"></td>
+                                    <td class="child"><input type="text" name="item_name" id="item_name" class="input items_name" placeholder="required" required onkeyup="check_items_name()"></td>
+                                    <td class="child"><input type="number" min="0" name="quantity" id="quantity" placeholder="optional" class="input" onkeyup="total_1()" onclick="total_1()"></td>
+                                    <td class="child"><input type="number" name="purchase" id="cost" class="input" placeholder="optional" onkeyup="total_1()" onclick="total_1()"></td>
+                                    <td class="child"><input type="number" name="sales" id="sales" class="input" placeholder="optional"></td>
+                                    <td class="child"><input type="text" name="total" id="total" readonly class="input" value=0></td>
+                                </tr>
+                            </tbody>
+
+                            <thead>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="col_1">Total</th>
+                                <th class="col_1">Gh&#x20B5 <span id="grand_total"></span></th>
+                            </thead>
+
+                        </table>
+
+                        <span onclick="add_line(1)" class="add_line_btn">Add Line</span>
+                        <span onclick="add_line(5)" class="add_line_btn">Add 5 lines</span>
+                        <span onclick="add_line(10)" class="add_line_btn">Add 10 lines</span>
+
+                        <div class="transaction_location">
+                            <span class="select_location_head">Select Inventory Location</span>
+                            <select name="location" id="" class="select_location">
+                                {{% for i in location %}
+                                    <option value="{{i.location_name}}">{{i.location_name}}</option>
+                                {% endfor %}}
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <button class="add_inventory_btn" onclick="add_items_btn(event)">add items</button>
+                    
+                </form>
+                
+
+            </div>
+
+            <div class="view_item_container" id="view_item_container">
+
+                <div class="create_label">
+                    <span class="control_pane" onclick="display_add_items(2)">inventory items</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">view</span>
+                    <button class="close_btn" onclick="display_add_items(2)"><i class="fa fa-times"></i></button>
+                </div>
+
+                <div class="view_item_label">
+                    <span class="view_item_head">Item Details</span>
+
+                    <div class="view_discription">
+                        <span class="view_singles">Serial or IMEI</span>
+                        <span class="view_singles">Brand</span>
+                        <span class="view_singles">Item Name</span>
+                        <span class="view_singles">starting Quantity</span>
+                        <span class="view_singles">Cost per Unit</span>
+                        <span class="view_singles">Sales Price</span>
+                        <span class="view_singles">Total Cost</span>
+                        <span class="view_singles">Date Created</span>
+                    </div>
+
+                    <div class="view_colons">
+                        <span class="view_singles">:</span>
+                        <span class="view_singles">:</span>
+                        <span class="view_singles">:</span>
+                        <span class="view_singles">:</span>
+                        <span class="view_singles">:</span>
+                        <span class="view_singles">:</span>
+                        <span class="view_singles">:</span>
+                        <span class="view_singles">:</span>
+                    </div>
+
+                    <div class="view_detail">
+                        <span class="view_singles view_inplace" id="edit_serial"></span>
+                        <span class="view_singles view_inplace"></span>
+                        <span class="view_singles view_inplace" id="edit_name"></span>
+                        <span class="view_singles view_inplace"></span>
+                        <span class="view_singles view_inplace"></span>
+                        <span class="view_singles view_inplace"></span>
+                        <span class="view_singles view_inplace"></span>
+                        <span class="view_singles view_inplace"></span>
+                    </div>
+
+                    <button class="view_edit" id="view_edit" onclick="edit_item_2()">edit</button>
+
+                </div>
+
+            </div>
+
+            <div class="edit_item_container" id="edit_item_container">
+
+                <div class="create_label">
+                    <span class="control_pane" onclick="display_add_items(2)">inventory items</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">view</span>
+                    <button class="control_pane close_btn" onclick="display_add_items(2)"><i class="fa fa-times"></i></button>
+                </div>
+
+                <div class="edit_item_label">
+                    <form action="{% url 'update_and_delete_item' %}" method="post" class="clear_form">
+
+                        {% csrf_token %}
+
+                        <span class="edit_item_head">Edit Item</span>
+
+                        <div class="edit_left_frame">
+                            <div class="input_frame">
+                                <span class="label">Serial or IMEI</span>
+                                <input type="text" name="serial_1" id="serial_1" class="input_1" readonly>
+                            </div>
+                            <div class="input_frame">
+                                <span class="label">Brand</span>
+                                <input type="text" name="brand_1" id="" class="input_1">
+                            </div>
+                            <div class="input_frame">
+                                <span class="label">Item_name</span>
+                                <input type="text" name="item_name_1" id="item_name_1" readonly class="input_1" required>
+                            </div>
+                            <div class="input_frame">
+                                <span class="label">Inventory location</span>
+                                <select name="location" id="edit_item_location" class="input_2">
+                                    {{% for i in location %}
+                                        <option value="{{i.location_name}}">{{i.location_name}}</option>
+                                    {% endfor %}}
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="edit_right_frame">
+                            <div class="input_frame">
+                                <span class="label">Starting Quantity</span>
+                                <input type="number" name="quantity_1" onkeyup="total_4()" id="quantity_1" class="input_1">
+                            </div>
+                            <div class="input_frame">
+                                <span class="label">Starting Cost per unit</span>
+                                <input type="number" name="purchase_1" onkeyup="total_4()" id="purchase_1" class="input_1">
+                            </div>
+                            <div class="input_frame">
+                                <span class="label">Starting Sales Price</span>
+                                <input type="number" name="sales_1" id="" class="input_1">
+                            </div>
+                            <div class="input_frame">
+                                <span class="label">Total Cost</span>
+                                <input type="number" name="total_1" id="total_1" class="input_1" readonly>
+                            </div>
+                        </div>
+
+                        <button class="edit_update" name="update">update</button>
+                        <button class="edit_delete" name="delete">delete</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Inventory Locations</span>
+
+            <div class="workarea_label non_scroll" id="display_location" style="display: block;">
+
+                <button class="item_btn_1" onclick="close_create_location(1)">add location</button>
+
+                <input type="search" name="" id="" class="item_search" onkeyup="">
+                <span class="item_search_icon"><i class="fa fa-search"></i> search by</span>
+                <select name="" id="" class="search_criteria">
+                    <option value="location">location</option>
+                    <option value="description">description</option>
+                </select>
+
+                <div class="list_of_items">
+
+                    {% if location %}
+                        <div class="items_container">
+                            <table class="items_table" id="">
+                                <thead class="create_header">
+                                    <th class="col get_value">Edit</i></th>
+                                    <th class="col get_value">View</i></th>
+                                    <th class="col get_value">ID</i></th>
+                                    <th class="col get_value">Location</th>
+                                    <th class="col get_value">Description</th>
+                                    <th class="col get_value">Items Quantity</th>                                 
+                                </thead>
+
+                                <tbody id="">
+                                    {% for i in location %}
+
+                                        <tr>
+                                            <td class="col middle"><button class="edit eye" onclick="edit_location(this)"><i class="far fa-edit"></i></button></td>
+                                            <td class="col middle"><button class="view eye" onclick="view_location(this)"><i class="fa fa-eye"></i></button></td>
+                                            <td class="col middle">{{i.pk}}</td>
+                                            <td class="col middle">{{i.location_name}}</td>
+                                            <td class="col middle">{{i.description}}</td>
+                                            <td class="col middle">{{i.total_item}}</td>
+                                        </tr>
+                                    
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <button class="item_btn_2" onclick="close_create_location(1)">add location</button>
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+            <div class="create_items_container" id="create_location_container">
+                <div class="create_label">
+                    <span class="control_pane" onclick="close_create_location(2)">inventory location</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">add location</span>
+                    <button class="control_pane close_btn" onclick="close_create_location(2)"> <i class="fa fa-times"></i></button>
+                </div>
+    
+                <form action="{% url 'add_location' %}" method="post" id="create_location_form">
+                    {% csrf_token %}
+    
+                    <div class="add_container">
+    
+                        <table class="collect_location_table" id="collect_location_table">
+                            <thead class="create_header">
+                                <th class="col_1">Location</th>
+                                <th class="col_1">Description</th>
+                            </thead>
+    
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" name="location" id="location_1" class="input loc_check collect_location_input" onkeyup="check_location()" required></td>
+                                    <td><input type="text" name="description" id="" class="input collect_location_input"></td>
+                                </tr>
+                            </tbody>
+    
+                        </table>
+    
+                        <div class="add_location_line"> 
+                            <span onclick="add_location_line(1)" class="add_line_btn location_line_btn">Add Line</span>
+                            <span onclick="add_location_line(5)" class="add_line_btn location_line_btn">Add 5 lines</span>
+                            <span onclick="add_location_line(10)" class="add_line_btn location_line_btn">Add 10 lines</span>
+                        </div> 
+    
+                    </div>
+    
+                    <button class="add_inventory_btn" onclick="verify_location(event)">add location</button>
+                        
+                </form>
+                
+            </div>
+
+            <div class="create_items_container" id="edit_location_container">
+                <div class="create_label">
+                    <span class="control_pane" onclick="close_create_location(2)">inventory location</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">add location</span>
+                    <button class="control_pane close_btn" onclick="close_create_location(2)"> <i class="fa fa-times"></i></button>
+                </div>
+    
+                <form action="{% url 'update_and_delete_location' %}" method="post">
+                    {% csrf_token %}
+    
+                    <div class="add_container">
+                        <div class="edit_location_wrapper">
+                            <div class="edit_location_chain">
+                                <span class="edit_location_word">ID:</span>
+                                <input type="text" name="location_id" id="edit_location_id" class="edit_location_input edit_loc_input" readonly>
+                            </div>
+                            <div class="edit_location_chain">
+                                <span class="edit_location_word">Location:</span>
+                                <input type="text" name="location" id="edit_location_name" class="edit_location_input">
+                            </div>
+                            <div class="edit_location_chain">
+                                <span class="edit_location_word">Description:</span>
+                                <input type="text" name="location_description" id="edit_location_description" class="edit_location_input">
+                            </div>
+                        </div>
+
+                        <div class="location_btn_container">
+                            <button class="location_update_btn" name="update">update</button>
+                            <button class="location_delete_btn" name="delete">delete</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="create_items_container" id="view_location_container">
+                <div class="create_label">
+                    <span class="control_pane" onclick="close_create_location(2)">inventory location</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">view location</span>
+                    <button class="control_pane close_btn" onclick="close_create_location(2)"> <i class="fa fa-times"></i></button>
+                </div>
+
+                <div class="create_label">
+                    <div class="parameters_in_location">
+                        <button class="parameters_btn">Items</button>
+                        <button class="parameters_btn">Sales</button>
+                        <button class="parameters_btn">Purchase</button>
+                        <button class="parameters_btn">Transfers</button>
+                        <button class="parameters_btn">Write~offs</button>
+                        <button class="parameters_btn">Orders</button>
+                        <button class="parameters_btn">Customers</button>
+                        <button class="parameters_btn">Suppliers</button>
+                        <button class="parameters_btn">Report</button>
+                    </div>
+                </div>
+
+                <div class="parameters_label">
+
+                    <table class="items_table" id="location_item_display_table">
+                        <thead class="create_header">
+                            <th class="col get_value">Edit</i></th>
+                            <th class="col get_value">View</i></th>
+                            <th class="col get_value">Serial or Imei</th>
+                            <th class="col get_value">Brand</th>
+                            <th class="col get_value">Item name</th>
+                            <th class="col get_value">Qty on hand</th>
+                            <th class="col get_value">Cost Average price</th>
+                            <th class="col get_value">Sales price</th>
+                            <th class="col get_value">Total cost</th>                                   
+                        </thead>
+
+                        <tbody id="location_display_table_body">
+                            
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="parameters_label" style="display: none;"></div>
+                <div class="parameters_label" style="display: none;"></div>
+                <div class="parameters_label" style="display: none;"></div>
+                <div class="parameters_label" style="display: none;"></div>
+                <div class="parameters_label" style="display: none;"></div>
+                <div class="parameters_label" style="display: none;"></div>
+                <div class="parameters_label" style="display: none;"></div>
+                <div class="parameters_label" style="display: none;"></div>
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Inventory Transfers</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Inventory Write-offs</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Sales Invoices</span>
+
+            <div class="workarea_label non_scroll" id="show_sales_list">
+
+                <button class="item_btn_1" onclick="create_sales(1)">New Sales</button>
+
+                <input type="search" name="" id="" class="item_search" onkeyup="search_sales(this)">
+                <span class="item_search_icon"><i class="fa fa-search"></i> search by</span>
+
+                <select name="" id="sales_search_criteria" class="search_criteria">
+                    <option value="date">date</option>
+                    <option value="reference">reference</option>
+                    <option value="description">description</option>
+                    <option value="customer">customer</option>
+                </select>
+
+                <div class="list_of_items">
+
+                    {% if sales %}
+                        <div class="items_container">
+                            <table class="items_table">
+                                <thead class="create_header">
+
+                                    <th class="col get_value">Edit</th>
+                                    <th class="col get_value">View</th>
+                                    <th class="col get_value">Reference</th>
+                                    <th class="col get_value">Date</th>
+                                    <th class="col get_value">Description</th>
+                                    <th class="col get_value">Customer</th>
+                                    <th class="col get_value">Total</th>
+
+                                </thead>
+
+                                <tbody id="sales_display_table_body">
+
+                                    {% for j in sales %}
+
+                                        <tr>
+                                            <td class="col middle"><button class="edit eye" onclick="edit_sales(this)"><i class="far fa-edit"></i></button></td>
+                                            <td class="col middle"><button class="view eye" onclick="view_sales(this)"><i class="fa fa-eye"></i></button></td>
+                                            <td class="col middle">{{j.id}}</td>
+                                            <td class="col middle">{{j.date}}</td>
+                                            <td class="col middle">{{j.description}}</td>
+                                            <td class="col middle">{{j.customer}}</td>
+                                            <td class="col middle">{{j.sales_total}}</td>
+                                        </tr>
+                                    
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                    {% else %}
+                        <button class="item_btn_2" onclick="create_sales(1)">New Sales Invoice</button>
+                    {% endif %}
+                    
+
+                </div>
+                
+            </div>
+
+            <div class="create_sales_container" id="create_sales_container">
+                <div class="create_label">
+                    <span class="control_pane" onclick="create_sales(2)">sales</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">add sales</span>
+                    <button class="control_pane close_btn" onclick="create_sales(2)"> <i class="fa fa-times"></i></button>
+
+                </div>
+
+                <form action="{% url 'add_sales' %}" method="post" id="clear_sales_form">
+                    {% csrf_token %}
+
+                    <div class="sales_add_container">
+
+                        <div class="customer_wrapper">
+
+                            <div class="sales_customer_1">
+                            
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Reference No : </span>
+                                    <input type="text" class="sales_customer_input" name="reference" readonly value="auto generated">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Issue date : </span>
+                                    <input type="date" name="date" id="set_date" class="sales_customer_input">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Description : </span>
+                                    <input type="text" name="description" class="sales_customer_input">
+                                </div>
+                            </div>
+
+                            <div class="sales_customer_2">
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Customer : </span>
+                                    <input type="text" name="customer_name" class="sales_customer_input">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Phone : </span>
+                                    <input type="tel" name="customer_phone" id="" class="sales_customer_input">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Address : </span>
+                                    <input type="text" name="customer_address" class="sales_customer_input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sales_overflow">
+                            <table class="create_sales_table" id="sales_table">
+                                <thead class="sales_create_header">
+                                    <th class="col_1">Items</th>
+                                    <th class="col_1">Serial or IMEI</th>
+                                    <th class="col_1">Quantity</th>
+                                    <th class="col_1">Sales Price</th>
+                                    <th class="col_1">Total Cost</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <datalist id="item_point" class="item_datalist">
+                                                <input type="text">
+                                                {% for i in items %}
+
+                                                <option class="data_value">{{i.brand}}-{{i.item_name}}</option>
+                                                
+                                                {% endfor %}
+                                                
+                                            </datalist>
+
+
+                                            <input id="sales_item" list="item_point" placeholder="--Select item--" class="sales_input main_sales_input" required name="item_name" onkeyup="fill_sales()">
+                                        </td>
+                                        <td><input type="text" name="serial" id="sales_serial" class="sales_input" required readonly></td>
+                                        <td><input type="number" min="0" name="quantity" id="sales_quantity" class="sales_input" onkeyup="sales_total_1()" onclick="sales_total_1()"></td>
+                                        <td><input type="number" min="0" name="sales" id="sales_sales" class="sales_input" onkeyup="sales_total_1()" onclick="sales_total_1()"></td>
+                                        <td><input type="text" name="total" id="sales_total" readonly class="sales_input" value=0></td>
+                                    </tr>
+                                </tbody>
+
+                                <thead>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="col_1">Total</th>
+                                    <th class="col_1"><input type="text" id="sales_grand_total" readonly name="sales_grand_total" class="sales_input"></th>
+                                </thead>
+
+                            </table>
+
+                            <span onclick="sales_line(1)" class="add_line_btn">Add Line</span>
+                            <span onclick="sales_line(5)" class="add_line_btn">Add 5 lines</span>
+                            <span onclick="sales_line(10)" class="add_line_btn">Add 10 lines</span>
+
+                            <div class="transaction_location">
+                                <span class="select_location_head">Select Inventory Location</span>
+                                <select name="location" id="" class="select_location">
+                                    {{% for i in location %}
+                                        <option value="{{i.location_name}}">{{i.location_name}}</option>
+                                    {% endfor %}}
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button class="sales_add_inventory_btn" onclick="add_sales_btn(event)">Create Invoice</button>
+                    
+                </form>
+
+            </div>
+
+            <div class="create_sales_container" id="view_sales_container">
+
+                <div class="create_label">
+                    <span class="control_pane" onclick="create_sales(2)">sales</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">view sales</span>
+                    <button class="control_pane close_btn" onclick="create_sales(2)"> <i class="fa fa-times"></i></button>
+                </div>
+
+                <div class="view_sales_wrapper" id="view_sales_wrapper">
+
+                    <span class="view_sales_head">INVOICE</span>
+
+                    <div class="view_sales_details">
+
+                        <div class="view_sales_detail">
+                            <span class="view_sales_word">Reference</span>
+                            <span class="view_sales_word">Date</span>
+                            <span class="view_sales_word">Customer</span>
+                            <span class="view_sales_word">Phone</span>
+                            <span class="view_sales_word">Address</span>
+                        </div>
+
+                        <div class="view_sales_colon">
+                            <span class="view_sales_word">:</span>
+                            <span class="view_sales_word">:</span>
+                            <span class="view_sales_word">:</span>
+                            <span class="view_sales_word">:</span>
+                            <span class="view_sales_word">:</span>
+                        </div>
+
+                        <div class="view_sales_fills">
+                            <span class="view_sales_word sales_description" id="view_edit_sales"></span>
+                            <span class="view_sales_word sales_description"></span>
+                            <span class="view_sales_word sales_description"></span>
+                            <span class="view_sales_word sales_description"></span>
+                            <span class="view_sales_word sales_description"></span>
+                        </div>
+
+                    </div>
+
+                    <p class="view_sales_description" id="view_sales_description"></p>
+
+                    <div>
+                        <table class="view_sales_table" id="view_sales_table">
+
+                            <thead class="view_sales_header">
+                                <th class="sales_col col_1">Items</th>
+                                <th class="sales_col col_1">Serial Or IMEI</th>
+                                <th class="sales_col col_1">Quantity</th>
+                                <th class="sales_col col_1">Sales Price</th>
+                                <th class="sales_col col_1">Total per Item</th>
+                            </thead>
+
+                            <tbody id="view_sales_table_body">
+                                
+                                
+                            </tbody>
+
+                            <thead>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="sales_col col_1" id="view_sales_grand_total" style="font-family: Arial, Helvetica, sans-serif;"></th>
+                            </thead>
+
+                        </table>
+                    </div>
+
+                    <button class="view_sales_edit_btn" onclick="view_edit_sales()">Edit</button>
+
+                </div>
+                
+            </div>
+
+            <div class="edit_sales_container" id="edit_sales_container">
+                <div class="create_label">
+                    <span class="control_pane" onclick="create_sales(2)">sales</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">edit sales</span>
+                    <button class="control_pane close_btn" onclick="create_sales(2)"> <i class="fa fa-times"></i></button>
+
+                </div>
+
+                <form action="{% url 'update_and_delete_sales' %}" method="post" id="clear_edit_sales_form">
+                    {% csrf_token %}
+
+                    <div class="sales_add_container">
+
+                        <div class="customer_wrapper">
+
+                            <div class="sales_customer_1">
+                            
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Reference No : </span>
+                                    <input type="text" class="sales_customer_input edit_sales" readonly name="reference">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Issue date : </span>
+                                    <input type="date" name="date" id="set_date" class="sales_customer_input edit_sales">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Description : </span>
+                                    <input type="text" name="description" class="sales_customer_input" id="edit_sales_1">
+                                </div>
+                            </div>
+
+                            <div class="sales_customer_2">
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Customer : </span>
+                                    <input type="text" name="customer_name" class="sales_customer_input edit_sales">
+                                </div>
+
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Phone : </span>
+                                    <input type="tel" name="customer_phone" id="" class="sales_customer_input edit_sales">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="sales_customer_text">Address : </span>
+                                    <input type="text" name="customer_address" class="sales_customer_input edit_sales">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sales_overflow">
+                            <table class="create_sales_table" id="edit_sales_table">
+                                <thead class="sales_create_header">
+                                    <th class="col_1">Items</th>
+                                    <th class="col_1">Serial or IMEI</th>
+                                    <th class="col_1">Quantity</th>
+                                    <th class="col_1">Sales Price</th>
+                                    <th class="col_1">Total Cost</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <datalist id="edit_item_point" class="item_datalist">
+                                                <input type="text">
+                                                {% for i in items %}
+
+                                                <option class="data_value">{{i.brand}}-{{i.item_name}}</option>
+                                                
+                                                {% endfor %}
+                                                
+                                            </datalist>
+
+
+                                            <input id="edit_sales_item" list="edit_item_point" placeholder="--Select item--" class="sales_input sales_edit_input edit_sales_input" required name="item_name" onkeyup="edit_fill_sales()">
+                                        </td>
+                                        <td><input type="text" name="serial" id="edit_sales_serial" class="sales_input sales_edit_input" required readonly></td>
+                                        <td><input type="number" min="0" name="quantity" id="edit_sales_quantity" class="sales_input sales_edit_input" onkeyup="edit_sales_total_1()" onclick="edit_sales_total_1()"></td>
+                                        <td><input type="number" min="0" name="sales" id="edit_sales_sales" class="sales_input sales_edit_input" onkeyup="edit_sales_total_1()" onclick="edit_sales_total_1()"></td>
+                                        <td><input type="text" name="total" id="edit_sales_total" readonly class="sales_input sales_edit_input" value=0></td>
+                                    </tr>
+                                </tbody>
+
+                                <thead>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="col_1">Total</th>
+                                    <th class="col_1"><input type="text" id="edit_sales_grand_total" readonly name="sales_grand_total" class="sales_input"></th>
+                                </thead>
+
+                            </table>
+
+                            <span onclick="edit_sales_line(1)" class="add_line_btn">Add Line</span>
+                            <span onclick="edit_sales_line(5)" class="add_line_btn">Add 5 lines</span>
+                            <span onclick="edit_sales_line(10)" class="add_line_btn">Add 10 lines</span>
+
+                            <div class="transaction_location">
+                                <span class="select_location_head">Select Inventory Location</span>
+                                <select name="location" id="sales_location" class="select_location">
+                                    {{% for i in location %}
+                                        <option value="{{i.location_name}}">{{i.location_name}}</option>
+                                    {% endfor %}}
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button class="edit_sales_update_btn" name="update" onclick="edit_update_sales_btn(event)">update</button>
+                    <button class="edit_sales_delete_btn" name="delete" onclick="edit_delete_sales_btn(event)">delete</button>
+                    
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Sales Orders</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Customers</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Purchase Invoices</span>
+
+            <div class="workarea_label non_scroll" id="show_purchase_list">
+
+                <button class="item_btn_1" onclick="create_purchase(1)">New Purchase</button>
+
+                <input type="search" name="" id="" class="item_search" onkeyup="search_purchase(this)">
+                <span class="item_search_icon"><i class="fa fa-search"></i> search</span>
+
+                <select name="" id="purchase_search_criteria" class="search_criteria">
+                    <option value="date">date</option>
+                    <option value="reference">reference</option>
+                    <option value="description">description</option>
+                    <option value="supplier">supplier</option>
+                </select>
+
+                <div class="list_of_items">
+
+                    {% if purchase %}
+                        <div class="items_container">
+                            <table class="items_table">
+                                <thead class="create_header">
+
+                                    <th class="col get_value">Edit</th>
+                                    <th class="col get_value">View</th>
+                                    <th class="col get_value">Reference</th>
+                                    <th class="col get_value">Date</th>
+                                    <th class="col get_value">Description</th>
+                                    <th class="col get_value">Supplier</th>
+                                    <th class="col get_value">Total</th>
+
+                                </thead>
+
+                                <tbody id="purchase_display_table_body">
+
+                                    {% for k in purchase %}
+
+                                        <tr>
+                                            <td class="col middle"><button class="edit eye" onclick="edit_purchase(this)"><i class="far fa-edit"></i></button></td>
+                                            <td class="col middle"><button class="view eye" onclick="view_purchase(this)"><i class="fa fa-eye"></i></button></td>
+                                            <td class="col middle">{{k.id}}</td>
+                                            <td class="col middle">{{k.date}}</td>
+                                            <td class="col middle">{{k.description}}</td>
+                                            <td class="col middle">{{k.supplier}}</td>
+                                            <td class="col middle">{{k.purchase_total}}</td>
+                                        </tr>
+                                    
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                    {% else %}
+                        <button class="item_btn_2" onclick="create_purchase(1)">New purchase Invoice</button>
+                    {% endif %}
+                    
+
+                </div>
+                
+            </div>
+
+            <div class="create_purchase_container" id="create_purchase_container">
+                <div class="create_label">
+                    <span class="control_pane" onclick="create_purchase(2)">purchase</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">add purchase</span>
+                    <button class="control_pane close_btn" onclick="create_purchase(2)"> <i class="fa fa-times"></i></button>
+
+                </div>
+
+                <form action="{% url 'add_purchase' %}" method="post" id="clear_purchase_form">
+                    {% csrf_token %}
+
+                    <div class="purchase_add_container">
+
+                        <div class="supplier_wrapper">
+
+                            <div class="purchase_supplier_1">
+                            
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Reference No : </span>
+                                    <input type="text" class="purchase_supplier_input" name="reference" readonly value="auto generated">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Issue date : </span>
+                                    <input type="date" name="date" id="set_purchase_date" class="purchase_supplier_input">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Description : </span>
+                                    <input type="text" name="description" class="purchase_supplier_input">
+                                </div>
+                            </div>
+
+                            <div class="purchase_supplier_2">
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Supplier : </span>
+                                    <input type="text" name="supplier_name" class="purchase_supplier_input">
+                                </div>
+
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Phone : </span>
+                                    <input type="tel" name="supplier_phone" id="" class="purchase_supplier_input">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Address : </span>
+                                    <input type="text" name="supplier_address" class="purchase_supplier_input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="purchase_overflow">
+                            <table class="create_purchase_table" id="purchase_table">
+                                <thead class="purchase_create_header">
+                                    <th class="col_1">Items</th>
+                                    <th class="col_1">Serial or IMEI</th>
+                                    <th class="col_1">Quantity</th>
+                                    <th class="col_1">Purchase Price</th>
+                                    <th class="col_1">Total Cost</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <datalist id="item_point" class="item_datalist">
+                                                <input type="text">
+                                                {% for i in items %}
+
+                                                <option class="data_value">{{i.brand}}-{{i.item_name}}</option>
+                                                
+                                                {% endfor %}
+                                                
+                                            </datalist>
+
+
+                                            <input id="purchase_item" list="item_point" placeholder="--Select item--" class="purchase_input main_purchase_input" required name="item_name" onkeyup="fill_purchase()">
+                                        </td>
+                                        <td><input type="text" name="serial" id="purchase_serial" class="purchase_input" required readonly></td>
+                                        <td><input type="number" min="0" name="quantity" id="purchase_quantity" class="purchase_input" onkeyup="purchase_total_1()" onclick="purchase_total_1()"></td>
+                                        <td><input type="number" min="0" name="purchase" id="purchase_purchases" class="purchase_input" onkeyup="purchase_total_1()" onclick="purchase_total_1()"></td>
+                                        <td><input type="text" name="total" id="purchase_total" readonly class="purchase_input" value=0></td>
+                                    </tr>
+                                </tbody>
+
+                                <thead>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="col_1">Total</th>
+                                    <th class="col_1"><input style="background-color: inherit; border: none;" type="text" id="purchase_grand_total" readonly name="purchase_grand_total" class="purchase_input"></th>
+                                </thead>
+
+                            </table>
+
+                            <span onclick="purchase_line(1)" class="add_line_btn">Add Line</span>
+                            <span onclick="purchase_line(5)" class="add_line_btn">Add 5 lines</span>
+                            <span onclick="purchase_line(10)" class="add_line_btn">Add 10 lines</span>
+
+                            <div class="transaction_location">
+                                <span class="select_location_head">Select Inventory Location</span>
+                                <select name="location" id="" class="select_location">
+                                    {{% for i in location %}
+                                        <option value="{{i.location_name}}">{{i.location_name}}</option>
+                                    {% endfor %}}
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button class="purchase_add_inventory_btn" onclick="add_purchase_btn(event)">Create Invoice</button>
+                    
+                </form>
+
+            </div>
+
+            <div class="create_purchase_container" id="view_purchase_container">
+
+                <div class="create_label">
+                    <span class="control_pane" onclick="create_purchase(2)">purchase</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">view purchase</span>
+                    <button class="control_pane close_btn" onclick="create_purchase(2)"> <i class="fa fa-times"></i></button>
+                </div>
+
+                <div class="view_purchase_wrapper" id="view_purchase_wrapper">
+
+                    <span class="view_purchase_head">INVOICE</span>
+
+                    <div class="view_purchase_details">
+
+                        <div class="view_purchase_detail">
+                            <span class="view_purchase_word">Reference</span>
+                            <span class="view_purchase_word">Date</span>
+                            <span class="view_purchase_word">Customer</span>
+                            <span class="view_purchase_word">Phone</span>
+                            <span class="view_purchase_word">Address</span>
+                        </div>
+
+                        <div class="view_purchase_colon">
+                            <span class="view_purchase_word">:</span>
+                            <span class="view_purchase_word">:</span>
+                            <span class="view_purchase_word">:</span>
+                            <span class="view_purchase_word">:</span>
+                            <span class="view_purchase_word">:</span>
+                        </div>
+
+                        <div class="view_purchase_fills">
+                            <span class="view_purchase_word purchase_description" id="view_edit_purchase"></span>
+                            <span class="view_purchase_word purchase_description"></span>
+                            <span class="view_purchase_word purchase_description"></span>
+                            <span class="view_purchase_word purchase_description"></span>
+                            <span class="view_purchase_word purchase_description"></span>
+                        </div>
+
+                    </div>
+
+                    <p class="view_purchase_description" id="view_purchase_description"></p>
+
+                    <div>
+                        <table class="view_purchase_table" id="view_purchase_table">
+
+                            <thead class="view_purchase_header">
+                                <th class="purchase_col col_1">Items</th>
+                                <th class="purchase_col col_1">Serial Or IMEI</th>
+                                <th class="purchase_col col_1">Quantity</th>
+                                <th class="purchase_col col_1">purchase Price</th>
+                                <th class="purchase_col col_1">Total per Item</th>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    
+                                </tr>
+                                
+                            </tbody>
+
+                            <thead>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="purchase_col col_1" id="view_purchase_grand_total" style="font-family: Arial, Helvetica, sans-serif;"></th>
+                            </thead>
+
+                        </table>
+                    </div>
+
+                    <button class="view_purchase_edit_btn" onclick="view_edit_purchase()">Edit</button>
+
+                </div>
+                
+            </div>
+
+            <div class="edit_purchase_container" id="edit_purchase_container">
+                <div class="create_label">
+                    <span class="control_pane" onclick="create_purchase(2)">purchase</span> 
+                    <span class="control_pane">/</span>
+                    <span class="control_pane">edit purchase</span>
+                    <button class="control_pane close_btn" onclick="create_purchase(2)"> <i class="fa fa-times"></i></button>
+
+                </div>
+
+                <form action="{% url 'update_and_delete_purchase' %}" method="post" id="clear_edit_purchase_form">
+                    {% csrf_token %}
+
+                    <div class="purchase_add_container">
+
+                        <div class="supplier_wrapper">
+
+                            <div class="purchase_supplier_1">
+                            
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Reference No : </span>
+                                    <input type="text" class="purchase_supplier_input edit_purchase" readonly name="reference">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Issue date : </span>
+                                    <input type="date" name="date" id="set_date" class="purchase_supplier_input edit_purchase">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Description : </span>
+                                    <input type="text" name="description" class="purchase_supplier_input" id="edit_purchase_1">
+                                </div>
+                            </div>
+
+                            <div class="purchase_supplier_2">
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Supplier : </span>
+                                    <input type="text" name="supplier_name" class="purchase_supplier_input edit_purchase">
+                                </div>
+
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Phone : </span>
+                                    <input type="tel" name="supplier_phone" id="" class="purchase_supplier_input edit_purchase">
+                                </div>
+
+                                <div class="input_frame">
+                                    <span class="purchase_supplier_text">Address : </span>
+                                    <input type="text" name="supplier_address" class="purchase_supplier_input edit_purchase">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="purchase_overflow">
+                            <table class="create_purchase_table" id="edit_purchase_table">
+                                <thead class="purchase_create_header">
+                                    <th>Items</th>
+                                    <th>Serial or IMEI</th>
+                                    <th>Quantity</th>
+                                    <th>purchase Price</th>
+                                    <th>Total Cost</th>
+                                    <th></th>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <datalist id="edit_item_point" class="item_datalist">
+                                                <input type="text">
+                                                {% for i in items %}
+
+                                                <option class="data_value">{{i.brand}}-{{i.item_name}}</option>
+                                                
+                                                {% endfor %}
+                                                
+                                            </datalist>
+
+
+                                            <input id="edit_purchase_item" list="edit_item_point" placeholder="--Select item--" class="purchase_input edit_purchase_input purchase_edit_input" required name="item_name" onkeyup="edit_fill_purchase()">
+                                        </td>
+                                        <td><input type="text" name="serial" id="edit_purchase_serial" class="purchase_input purchase_edit_input" required readonly></td>
+                                        <td><input type="number" min="0" name="quantity" id="edit_purchase_quantity" class="purchase_input purchase_edit_input" onkeyup="edit_purchase_total_1()" onclick="edit_purchase_total_1()"></td>
+                                        <td><input type="number" min="0" name="purchase" id="edit_purchase_purchases" class="purchase_input purchase_edit_input" onkeyup="edit_purchase_total_1()" onclick="edit_purchase_total_1()"></td>
+                                        <td><input type="text" name="total" id="edit_purchase_total" readonly class="purchase_input purchase_edit_input" value=0></td>
+                                    </tr>
+                                </tbody>
+
+                                <thead>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th><input type="text" id="edit_purchase_grand_total" readonly name="purchase_grand_total" class="purchase_input"></th>
+                                </thead>
+
+                            </table>
+
+                            <span onclick="edit_purchase_line(1)" class="add_line_btn">Add Line</span>
+                            <span onclick="edit_purchase_line(5)" class="add_line_btn">Add 5 lines</span>
+                            <span onclick="edit_purchase_line(10)" class="add_line_btn">Add 10 lines</span>
+
+                            <div class="transaction_location">
+                                <span class="select_location_head">Select Inventory Location</span>
+                                <select name="location" id="purchase_location" class="select_location">
+                                    {{% for i in location %}
+                                        <option value="{{i.location_name}}">{{i.location_name}}</option>
+                                    {% endfor %}}
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button class="edit_purchase_update_btn" name="update" onclick="edit_update_purchase_btn(event)">update</button>
+                    <button class="edit_purchase_delete_btn" name="delete" onclick="edit_delete_purchase_btn(event)">delete</button>
+                    
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Purchase Orders</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Goods Receipts</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Suppliers</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Payments</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Journals</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Quantity & Price Reports</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Visual Reports</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Performance & Forecast</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+        <div class="transaction_container">
+
+            <span class="workarea_header">Settings</span>
+
+            <div class="workarea_label">
+                
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="tail">
+
+        <div class="tail1">@ 2020-2024</div>
+
+        <div class="social">
+            <span class="social1"><i class="fa-brands fa-whatsapp"></i> 0240234163</span>
+            <span class="social1"><i class="fa-brands fa-facebook"></i> keepon1</span>
+            <span class="social1"><i class="fa-brands fa-instagram"></i> madover_1</span>
+            <span class="social1"><i class="fa-brands fa-x-twitter"></i> chris_ jhunia</span>
+            <span class="social1"><i class="fa-brands fa-tiktok"></i> keepon_1</span>
+        </div>
+
+    </div>
+    
+</body>
+</html>
